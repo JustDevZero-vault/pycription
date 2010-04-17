@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #*.*coding:utf-8*.*
 
-#       encriptador.py written in python2.8
+#       pycription.py written in python2.8
 #       version 0.1
 #       Copyright 2010 Mephiston <meph.snake@gmail.com>
 #
@@ -33,12 +33,12 @@ def caesar_encode(plaintext,s,alphabet):
     return translator(plaintext,alphabet,alphabet[s:]+alphabet[:s])
 
 def caesar_decode(plaintext,s,alphabet):
-    traducido=translator(plaintext,alphabet,alphabet[-s:]+alphabet[:-s])
+    translated=translator(plaintext,alphabet,alphabet[-s:]+alphabet[:-s])
     base_name="clear_"+((sys.argv[2]))
-    print 'Archivo correctamente desencriptado como "%s"' % (base_name)
-    archivo=open(base_name,"w")
-    archivo.write(traducido)
-    archivo.close()
+    print 'File correctly decrypted as "%s"' % (base_name)
+    filename=open(base_name,"w")
+    filename.write(translated)
+    filename.close()
 
 def substitution_encode(plaintext,alphabet):
     randarray=range(0,len(alphabet))
@@ -52,58 +52,58 @@ def substitution_encode(plaintext,alphabet):
 
 
 def substitution_decode(plaintext,key,alphabet):
-    traducido=translator(plaintext,key,alphabet)
+    translated=translator(plaintext,key,alphabet)
     base_name="clear_"+((sys.argv[2]))
-    print 'Archivo correctamente desencriptado como "%s"' % (base_name)
-    archivo=open(base_name,"w")
-    archivo.write(traducido)
-    archivo.close()
+    print 'File correctly decrypted as "%s"' % (base_name)
+    filename=open(base_name,"w")
+    filename.write(translated)
+    filename.close()
 
 
 def process_substitution(plaintext,alphabet):
     base_name="criptsub_"+((sys.argv[2]))
     base1 = "".join(base_name.split(".")[0])
-    clave_name="clave_"+base1+".txt"
-    archivo=open(base_name,"w")
+    key_name="key_"+base1+".txt"
+    filename=open(base_name,"w")
     ciphertext,key=substitution_encode(plaintext,alphabet)
-    f=open(clave_name,"w")
+    f=open(key_name,"w")
     f.write(key)
     f.close()
     print base_name
-    print "Llave usada para substitución: ", key
+    print "Key used for substitution: ", key
     #print "Texto plano:", plaintext
     #print "Texto cifrado:", ciphertext
-    archivo.write(ciphertext)
-    archivo.close()
-    print 'El archivo con el texto encriptado ha sido llamado "%s", y se ha guardado la llave en "%s"\n' % (base_name, clave_name)
+    filename.write(ciphertext)
+    filename.close()
+    print 'File correctly encrypted as "%s", the key was saved as "%s"\n' % (base_name, key_name)
 
 def process_cesar(plaintext,alphabet):
     base_name="criptcesar_"+((sys.argv[2]))
-    archivo=open(base_name,"w")
+    filename=open(base_name,"w")
     ciphertext=caesar_encode(plaintext,5,alphabet)
-    print "Llave usada para cesar: ", 5
+    print "The key used for crypt was: ", 5
     #print "Texto plano:", plaintext
     #print "Texto cifrado:", ciphertext
-    archivo.write(ciphertext)
-    archivo.close()
-    print 'El archivo con el texto encriptado ha sido llamado "%s"\n' % (base_name)
+    filename.write(ciphertext)
+    filename.close()
+    print 'File correctly encrypted as  "%s"\n' % (base_name)
     #print "Decoded  :", caesar_decode(ciphertext,5,alphabet)
 
 def all(plaintext,alphabet):
-    print "Se encriptará con todos los metodos."
+    print "The file is going to be crypted with all methods."
     substitution_process(plaintext,alphabet)
     process_cesar(plaintext,alphabet)
 
 def help_f():
-    print "Uso: encriptador <opciones> <documento> <alfabeto>"
-    print "\t   <opciones>:"
-    print "\t\t   -c / --crypt=cesar Encriptará el texto usando el Metodo Cesar"
-    print "\t\t   -s / --crypt=substitute Encriptará el texto usando el Metodo por Substitución, usando una clave generada aleatoriamente."
-    print "\t\t   -a / --crypt=all Encriptará usando los dos metodos"
-    print "\t\t   -dc / --decrypt=cesar Desencriptará un texto encriptado por Metodo Cesar"
-    print "\t\t   -ds / --decrypt=substitute Desencriptará un texto encriptado por Metodo de Substitución (el archivo debe llamarse: clave_archioadescifrar)"
-    print "\t   <documento>: archivo que desea encriptar o desencriptar"
-    print "\t   <alfabeto>: archivo que contiene su alfabeto que será susceptible a encriptarse"
+    print "Usage: pycription.py <options> <document> <alphabet>"
+    print "\t   <options>:"
+    print "\t\t   -c / --crypt=cesar This will crypt the text using CESAR."
+    print "\t\t   -s / --crypt=substitute This will crypt the text using RANDOM KEY SUBSTITUTION."
+    print "\t\t   -a / --crypt=all This will crypt with all methots"
+    print "\t\t   -dc / --decrypt=cesar This will decrypt a CESAR text"
+    print "\t\t   -ds / --decrypt=substitute This will descrypt a RANDOM KEY SUBSTITUTION text, the key file, mast be started with key_"
+    print "\t   <document>: the file that you want to crypt or decrypt"
+    print "\t   <alphabet>: the file that contains the characters that are susceptible to being replaced"
     sys.exit(1)
 
 def especification():
@@ -111,8 +111,8 @@ def especification():
         if str.lower(sys.argv[1]) =="--help":
             help_f()
     if len(sys.argv) not in [4]:
-        print "encriptador: opción incorrecta",str.lower(sys.argv[1])
-        print "Pruebe `encriptador --help´ para más información."
+        print "pycription.py: incorrect option",str.lower(sys.argv[1])
+        print "Try `pycription.py --help´ for more information."
         sys.exit(1)
 
     try:
@@ -121,24 +121,24 @@ def especification():
 
     except(IOError):
         base_name=((sys.argv[2]))
-        print '[-] Error: No se ha encontrado el archivo "%s"\n' % (base_name)
+        print '[-] Error: The file "%s" was not found.\n' % (base_name)
         sys.exit(1)
     try:
         alphabet = open(sys.argv[3], "r").readlines()
         alphabet= "".join(alphabet)
     except(IOError):
         alfa_name=((sys.argv[3]))
-        print '[-] Error: No se ha encontrado el archivo alfabeto "%s"\n' % (alfa_name)
+        print '[-] Error: The alphabet "%s" was not found\n' % (alfa_name)
         sys.exit(1)
     if ((sys.argv[1]) in ["-ds","--decrypt=substitute"]):
-        clave_name="clave_"+((sys.argv[2]))
+        key_name="key_"+((sys.argv[2]))
         try:
-            key = open(clave_name, "r").readlines()
+            key = open(key_name, "r").readlines()
             key= "".join(key)
-            print "Clave: ",key
+            print "Key: ",key
             substitution_decode(plaintext,key,alphabet)
         except(IOError):
-            print '[-] Error: No se ha encontrado el archivo "%s"\n' % (clave_name)
+            print '[-] Error: The key file "%s" was not found.\n' % (key_name)
     elif ((sys.argv[1]) in ["-dc","--decrypt=cesar"]):
         print "Clave: ",5
         caesar_decode(plaintext,5,alphabet)
@@ -149,7 +149,7 @@ def especification():
     elif ((sys.argv[1]) in ["-s", "--crypt=substitute"]):
         process_substitution(plaintext,alphabet)
     elif ((sys.argv[1]) in ["-c", "-s", "-ds","--decrypt=substitute","-dc","--decrypt=cesar","-a","--help","--crypt=substitute",]):
-        print "[-] Error: Opción no valida\n"
+        print "[-] Error: Invalid option\n"
         sys.exit(1)
 
 

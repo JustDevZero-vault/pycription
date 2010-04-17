@@ -21,6 +21,8 @@
  *
  *
  *   ------------------- SCRIPT LIST ------------------ *
- *  encriptador.py: An earlier python encripter/decripter with old estyles encription systems, like CESAR, ENIGMA, etc...
+ *  pycription.py: An earlier python encripter/decripter with old estyles encription systems, like CESAR, ENIGMA, etc...
+ *  example.txt: An example text for testing pycription.py
+ *  alphabet.txt: The characters that are susceptible to being replaced by pycription.
  *
  */
