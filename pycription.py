@@ -82,8 +82,8 @@ def process_cesar(plaintext,alphabet):
     filename=open(base_name,"w")
     ciphertext=caesar_encode(plaintext,5,alphabet)
     print "The key used for crypt was: ", 5
-    #print "Texto plano:", plaintext
-    #print "Texto cifrado:", ciphertext
+    #print "Plain text plano:", plaintext
+    #print "Crypted text:", ciphertext
     filename.write(ciphertext)
     filename.close()
     print 'File correctly encrypted as  "%s"\n' % (base_name)
